@@ -1,0 +1,29 @@
+#================================================================================
+#      基于python3.7的创建fastapi的dockerfile文件
+#      fastapi + python3.7 + guvicorn
+# 
+#    
+# 启动容器
+# docker run -itd -p 8887:8889 -t v2
+#================================================================================
+
+
+FROM python:3.7
+
+# MAINTAINER superman for hzj
+
+LABEL version="0.2v"
+
+WORKDIR /root/code
+
+COPY ./BA ./
+
+COPY ./requirements.txt ./
+
+COPY ./guvicorn.conf ./
+
+RUN pip install -r requirements.txt
+
+CMD ["gunicorn","-c","guvicorn.conf","main:app"]
+
+
